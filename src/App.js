@@ -30,7 +30,7 @@ function App() {
     }else{
       setUser(null);
     }
-    })
+    });
 
   }, []);
   const handleLogout = () => {
@@ -53,21 +53,28 @@ function App() {
   <Routes>
     {/* <Route path="/" setActive={setActive} active={active} user={user}  element={<Home /> } /> */}
     <Route path="/" element={<Home setActive={setActive} user={user} />} />
-    <Route path="/detail/:id" element={<Detail setActive={setActive} />} />
     <Route
-     path="/create"
-      element={
-        user?.uid ? <AddEditBlog  user={user} /> : <Navigate to="/" />
-        }
-     />
+          path="/detail/:id"
+          element={<Detail setActive={setActive} user={user} />}
+        />
     <Route
-     path="/update/:id"
-      element={
-        user?.uid ? <AddEditBlog  user={user} /> : <Navigate to="/" />
-        }
-     />
+          path="/create"
+          element={
+            user?.uid ? <AddEditBlog user={user} /> : <Navigate to="/" />
+          }
+        />
+        <Route
+          path="/update/:id"
+          element={
+            user?.uid ? (
+              <AddEditBlog user={user} setActive={setActive} />
+            ) : (
+              <Navigate to="/" />
+            )
+          }
+        />
     <Route path="/about" element={<About />} />
-    <Route path="/auth" element={<Auth setActive = {setActive} />} />
+    <Route path="/auth" element={<Auth setActive = {setActive} setUser={setUser} />} />
     <Route path="*" element={<Notfound />} />
   </Routes>
     </div>

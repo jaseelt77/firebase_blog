@@ -1,7 +1,6 @@
 import { collection, deleteDoc, doc, getDocs, onSnapshot, query, where } from 'firebase/firestore';
 import React, {useState, useEffect} from 'react';
 import { db } from '../firebase';
-import { List } from '@mui/material';
 import BlogSection from '../components/BlogSection';
 import Spinner from '../components/Spinner';
 import { toast } from 'react-toastify';
@@ -52,7 +51,7 @@ const Home = ({ setActive, user }) => {
       unsub();
       getTrendingBlogs();
     };
-  }, []);
+  }, [setActive]);
 
   if(loading){
    return <Spinner />
@@ -62,7 +61,7 @@ const Home = ({ setActive, user }) => {
         try {
           setLoading(true);
           await deleteDoc(doc(db, "blogs", id));
-          toast.success("Image Upload to firebase Successfully");
+          toast.success("blog deleted  Successfully");
           setLoading(false);
         }
         catch(err) {

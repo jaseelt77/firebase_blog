@@ -28,11 +28,13 @@ const AddEditBlog = ({ user, setActive }) => {
     const[form, setForm] = useState(initialState);
     const[file, setFile] = useState(null);
     const[progress, setProgress] =useState(null);
+
+
     const {id} = useParams();
 
     const navigate = useNavigate();
 
-    const {title, tags, category, trending, description} = form;
+    const { title, tags, category, trending, description } = form;
     
     useEffect(() => {
         const uploadFile = () => {
@@ -64,7 +66,7 @@ const AddEditBlog = ({ user, setActive }) => {
             () => {
                 getDownloadURL(UploadTask.snapshot.ref).then((downloadUrl) => {
                     toast.info("Image Upload to firebase Successfull");
-                    setForm((prev) => ({ ...prev, imgUrl: downloadUrl}));
+                    setForm((prev) => ({ ...prev, imgUrl: downloadUrl }));
                 });
             }
             );
@@ -85,8 +87,6 @@ const AddEditBlog = ({ user, setActive }) => {
         }
         setActive(null);
       };
-   
-    console.log("form", form);
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -107,8 +107,8 @@ const AddEditBlog = ({ user, setActive }) => {
 
       const handleSubmit = async (e) => {
         e.preventDefault();
-        if(category && tags && title && description && trending){
-            if(!id){
+        if(category && tags && title && description && trending) {
+            if (!id){
                 try {
                     await addDoc(collection(db, "blogs"), {
                         ...form,
@@ -200,7 +200,7 @@ const AddEditBlog = ({ user, setActive }) => {
                             className="catg-dropdown">
                                 <option>please Select Category</option>
                                {categoryOption.map((option, index) => (
-                                <option value={option || ""} key={index} >{option}</option>
+                                <option value={option || ""} key={index}>{option}</option>
                                ))}
                         </select>
                         </div>
